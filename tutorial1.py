@@ -1,3 +1,7 @@
+"""
+Author: Aldrienne Maniti
+Description: Scrape Lazada.com.ph for list of monitors. Lists the monitor name, rating and price. List of details will be encoded to a csv file.
+"""
 # Selenium tutorial #1
 # https://sites.google.com/a/chromium.org/chromedriver/downloads
 from selenium import webdriver
@@ -36,13 +40,27 @@ try:
 except Exception as e:
     print(e)
 
-for product in products:
-    temp_product = Product(
-        product_name=product.find_element_by_class_name('c16H9d').text,
-        product_price=product.find_element_by_class_name('c3gUW0').text,
+try:
+    rating = WebDriverWait(driver,20).until(
+        EC.presence_of_element_located((By.CLASS_NAME,'c3XbGJ'))
     )
 
-    product_list.append(temp_product)
+    print(driver.page_source)
+
+    for product in products:
+        rating_x = product.find_element_by_class_name('c3XbGJ')
+        temp_product = Product(
+            product_name=product.find_element_by_class_name('c16H9d').text,
+            product_price=product.find_element_by_class_name('c3gUW0').text,
+            product_rating=rating.find_element_by_css_selector('c3XbGJ')
+        )
+
+        product_list.append(temp_product)
+
+except Exception as e:
+    print(e)
+
+
 
 driver.close()
 
