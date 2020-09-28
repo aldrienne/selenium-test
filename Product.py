@@ -11,4 +11,4 @@ class Product:
         return self.product_name + '\t' + self.product_rating + '\t' + self.product_price
 
     def get_product(self):
-        return str(self.product_name + '\t' + self.product_rating + '\t' + self.product_price + '\n')
+        return str(self.product_name + '\t' + self.product_rating + '\t' + self.product_price)

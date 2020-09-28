@@ -10,13 +10,15 @@ from selenium.webdriver.support import expected_conditions as EC
 
 import time
 
+import csv
+
 product_list = []
 
-#STEP 1 LOCATE CHROME DRIVER
+# STEP 1 LOCATE CHROME DRIVER
 PATH = 'C:\Program Files (x86)\chromedriver.exe'
-#STEP 2 SPECIFY BROWSER DRIVER
+# STEP 2 SPECIFY BROWSER DRIVER
 driver = webdriver.Chrome(PATH)
-#STEP 3 ACCESS URL
+# STEP 3 ACCESS URL
 driver.get('https://www.lazada.com.ph/')
 
 search = driver.find_element_by_id('q')
@@ -34,7 +36,6 @@ try:
 except Exception as e:
     print(e)
 
-
 for product in products:
     temp_product = Product(
         product_name=product.find_element_by_class_name('c16H9d').text,
@@ -45,9 +46,17 @@ for product in products:
 
 driver.close()
 
-with open('output.txt','w+',encoding='utf+8') as file:
+with open('output.csv', 'w+', encoding='utf-8') as monitor_file:
+    fieldnames = ['monitor_name','monitor_price','monitor_rating']
+    writer = csv.DictWriter(monitor_file, fieldnames=fieldnames)
+
+    writer.writeheader()
     for product in product_list:
-        file.write(product.get_product())
+        writer.writerow({
+            'monitor_name': product.product_name,
+            'monitor_price': product.product_price,
+            'monitor_rating': product.product_rating
+        })
 
+#Samsung Ls24F350Fhexxp  23.6  Vga/Hdmi Black Monitor
 print("FINISHED!")
-

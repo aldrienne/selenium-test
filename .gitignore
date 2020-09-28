@@ -125,3 +125,4 @@ venv.bak/
 dmypy.json
 
 output.txt
+output.csv
