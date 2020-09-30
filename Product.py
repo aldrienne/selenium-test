@@ -1,4 +1,4 @@
-from selenium import webdriver
+
 
 class Product:
     """A Class to represent a product.
@@ -20,7 +20,7 @@ class Product:
             product details(str)
 
     """
-    def __init__(self,product_name, product_price,product_rating='0'):
+    def __init__(self, product_name, product_price, product_rating='0'):
         """Constructs all necessary  attributes of the product
             Parameters
                 product_name : str
@@ -33,7 +33,7 @@ class Product:
         """
         self.product_name = str(product_name)
         self.product_price = str(product_price)
-        self.product_rating = str(product_rating)
+        self.product_rating = str(product_rating).replace('(', '').replace(')', '')
 
     def get_product(self):
         """
